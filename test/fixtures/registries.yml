@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  url: MyString
+  ecosystem: MyString
+  default: false
+  packages_count: 1
+  github: MyString
+  metadata: 
+
+two:
+  name: MyString
+  url: MyString
+  ecosystem: MyString
+  default: false
+  packages_count: 1
+  github: MyString
+  metadata: 

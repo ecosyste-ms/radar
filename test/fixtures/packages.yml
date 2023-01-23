@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  ecosystem: MyString
+  description: MyText
+  keywords: MyText
+  homepage: MyString
+  licenses: MyString
+  repository_url: MyString
+  normalized_licenses: MyString
+  versions_count: 1
+  latest_release_published_at: 2023-01-07 21:37:27
+  latest_release_number: MyString
+  keywords_array: MyString
+  language: MyString
+  status: MyString
+  last_synced_at: 2023-01-07 21:37:27
+
+two:
+  name: MyString
+  ecosystem: MyString
+  description: MyText
+  keywords: MyText
+  homepage: MyString
+  licenses: MyString
+  repository_url: MyString
+  normalized_licenses: MyString
+  versions_count: 1
+  latest_release_published_at: 2023-01-07 21:37:27
+  latest_release_number: MyString
+  keywords_array: MyString
+  language: MyString
+  status: MyString
+  last_synced_at: 2023-01-07 21:37:27

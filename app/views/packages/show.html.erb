@@ -1,0 +1,148 @@
+<h1>Packages: <%= @package.name %></h1>
+
+<% if @package.latest_release_number %>
+  <small class='text-muted'>
+    Latest Version <%= @package.latest_release_number %>
+  </small>
+<% end %>
+<% if @package.status %>
+  <small class='badge bg-secondary'>
+  <%= @package.status %>
+  </small>
+<% end %>
+
+<% if @package.description.present? %>
+  <%= simple_format @package.description %>
+<% end %>
+
+<small class='text-muted'>
+  <% if @package.versions_count > 0 %>
+    <%= pluralize number_with_delimiter(@package.versions_count), 'version' %>
+  <% end %>
+
+  <% if @package.latest_release_published_at %>
+    <%= '-' if @package.versions_count > 0 %> <span title="<%= @package.latest_release_published_at %>">Latest release: <%= time_ago_in_words @package.latest_release_published_at %> ago</span>
+  <% end %>
+
+  <% if @package.dependent_repositories_count > 0 %>
+    - <%= pluralize number_with_delimiter(@package.dependent_repositories_count), 'dependent repositories' %>
+  <% end %>
+</small>
+
+<hr>
+
+<h4>Version Breakdown</h4>
+
+<div class='row'>
+  <div class='col-md-3'>
+    <h5> Major Versions </h5>
+    <ul>
+      <% Package.dependent_repos_count_by_major_version(@scope).each do |k,v| %>
+        <li>
+          <%= link_to "#{k}.X.X", url_for(resolved_major_versions: k) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class='col-md-3'>
+    <h5> Minor Versions </h5>
+    <ul>
+      <% Package.dependent_repos_count_by_minor_version(@scope).each do |k,v| %>
+        <li>
+          <%= link_to "#{k}.X", url_for(resolved_minor_versions: k) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class='col-md-3'>
+    <h5> Patch Versions </h5>
+    <ul>
+      <% Package.dependent_repos_count_by_patch_version(@scope).each do |k,v| %>
+        <li>
+          <%= link_to k, url_for(resolved_patch_versions: k) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<% if @package.advisories.any? %>
+
+  <h4> Advisories </h4>
+
+  <ul>
+    <% @package.advisories.each do |advisory| %>
+      <li>
+        <%= link_to advisory['title'], advisory['url'] %>
+        <% range =  advisory['packages'].first['versions'].map{|v| v['vulnerable_version_range']}.join(' || ') %><br />
+        <small class='text-muted'>
+          Affected versions: <%= link_to @package.affected_versions(range).sort.join(', '), url_for(resolved_patch_versions: @package.affected_versions(range)) %>
+        </small>
+      </li>
+    <% end %>
+  </ul>
+
+  <hr>
+
+<hr>
+
+<% end %>
+
+<h4> Repositories Breakdown </h4>
+
+<div class='row'>
+  <div class='col-md-3'>
+    <h5>Direct/Transitive</h5>
+
+    <ul>
+      <% @scope.group(:direct_dependency).count.each do |k,v| %>
+        <% next if k.nil? %>
+        <% name = k ? 'Direct' : 'Transitive' %>
+        <li>
+          <%= link_to name, url_for(direct_dependency: k) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class='col-md-3'>
+    <h5>Forks</h5>
+
+    <ul>
+      <% @scope.group("repository_fields->>'fork'").count.each do |k,v| %>
+        <% next if k.nil? %>
+        
+        <li>
+          <%= link_to k, url_for(fork: k) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+    <div class='col-md-3'>
+    <h5>Archived</h5>
+
+    <ul>
+      <% @scope.group("repository_fields->>'archived'").count.each do |k,v| %>
+        <% next if k.nil? %>
+        
+        <li>
+          <%= link_to k, url_for(archived: k) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+
+<hr>
+
+<h4>
+  Dependent Repositories
+  <small class='text-muted'>
+    <%= number_with_delimiter(@pagy.count) %>
+  </small>
+</h4>
+
+<%= render @dependent_repositories %>
+<%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>

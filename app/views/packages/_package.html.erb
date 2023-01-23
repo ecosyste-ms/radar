@@ -1,0 +1,40 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">
+      <%= link_to package.name, package_path(package) %>
+      <% if package.latest_release_number %>
+        <small class='text-muted'>
+        <%= package.latest_release_number %>
+        </small>
+      <% end %>
+      <% if package.status %>
+        <small class='badge bg-secondary'>
+        <%= package.status %>
+        </small>
+      <% end %>
+    </h5>
+
+    <% if package.description.present? %>
+      <%= truncate package.description, :length => 100 %><br/>
+    <% end %>
+
+    <small class='text-muted'>
+      <% if package.versions_count > 0 %>
+        <%= pluralize number_with_delimiter(package.versions_count), 'version' %>
+      <% end %>
+
+      <% if package.latest_release_published_at %>
+        <%= '-' if package.versions_count > 0 %> <span title="<%= package.latest_release_published_at %>">Latest release: <%= time_ago_in_words package.latest_release_published_at %> ago</span>
+      <% end %>
+
+      <% if package.dependent_repositories_count > 0 %>
+        - <%= pluralize number_with_delimiter(package.dependent_repositories_count), 'dependent repositories' %>
+      <% end %>
+
+      <% if package.advisories.any? %>
+        - <%= pluralize number_with_delimiter(package.advisories.count), 'advisory' %>
+      <% end %>
+
+    </small>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<% if dependent_repository.repository_fields.present? %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= link_to dependent_repository.full_name, dependent_repository.repository_fields['html_url'], target: :_blank %>
+        <small class='text-muted'>
+        <%= URI.parse(dependent_repository.repository_fields['html_url']).host.downcase %>
+        </small>
+      </h5>
+
+      <% if dependent_repository.description.present? %>
+        <%= dependent_repository.description %><br/>
+      <% end %>
+
+      <small class='text-muted'>
+        <% if dependent_repository.repository_fields['stargazers_count'] %>
+          Stars: <%= number_with_delimiter dependent_repository.repository_fields['stargazers_count'] %><br/>
+        <% end %>
+
+        <% if dependent_repository.repository_fields['fork'] %>
+          Fork: <%= dependent_repository.repository_fields['fork'] %><br/>
+        <% end %>
+
+        <% if dependent_repository.repository_fields['archived'] %>
+        Archived: <%= dependent_repository.repository_fields['archived'] %><br/>
+        <% end %>
+
+        <% if dependent_repository.repository_fields['pushed_at'] %>
+        Last pushed: <%= dependent_repository.repository_fields['pushed_at'] %><br/>
+        <% end %>
+
+        Resolved versions: <%= dependent_repository.resolved_versions.join(', ') %><br/>
+        Direct dependency: <%= dependent_repository.direct_dependency? %><br/>
+        Manifests: <%= dependent_repository.manifests.keys.join(', ') %><br/>
+      </small>
+    </div>
+  </div>
+<% end %>
