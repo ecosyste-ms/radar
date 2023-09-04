@@ -15,6 +15,10 @@ class Package < ApplicationRecord
     end
   end
 
+  def owner
+    repository_url.split('/')[3]
+  end
+
   def self.discover_from_repository(full_name)
     url = "https://packages.ecosyste.ms/api/v1/packages/lookup?repository_url=https://github.com/#{full_name}"
     response = Faraday.get(url)
@@ -143,9 +147,16 @@ class Package < ApplicationRecord
 
       break if dependencies.count == 0
 
-      dependencies.group_by{|dep| dep['repository']['full_name']  }.each do |full_name, deps|
-        repo = dependent_repositories.find_or_create_by(full_name: full_name)
+      groups = dependencies.group_by{|dep| dep['repository']['full_name']  }
 
+      existing_repos = dependent_repositories.where(full_name: groups.keys)
+
+      groups.each do |full_name, deps|
+        repo = existing_repos.find{|r| r.full_name == full_name}
+        if repo.nil?
+          repo = dependent_repositories.find_or_create_by(full_name: full_name)
+        end
+        
         repo.repository_fields = deps.first['repository']
         
         repo.manifests ||= {}
@@ -158,7 +169,6 @@ class Package < ApplicationRecord
         repo.set_details
         repo.save if repo.changed?
       end
-      # TODO keep track of last dependency id synced and pass that as a param
       page += 1
       break if dependencies.count < 1000
     end
