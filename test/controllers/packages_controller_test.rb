@@ -2,12 +2,12 @@ require "test_helper"
 
 class PackagesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get packages_index_url
+    get packages_url
     assert_response :success
   end
 
   test "should get show" do
-    get packages_show_url
+    get package_url(packages(:one))
     assert_response :success
   end
 end
