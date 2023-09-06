@@ -1,0 +1,29 @@
+<% if dependent_package.package_fields.present? %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= link_to dependent_package.name, dependent_package.package_fields['registry_url'], target: :_blank %>
+        <small class='text-muted'>
+        <%= URI.parse(dependent_package.package_fields['registry_url']).host.downcase %>
+        </small>
+      </h5>
+
+      <% if dependent_package.description.present? %>
+        <%= dependent_package.description %><br/>
+      <% end %>
+
+      <small class='text-muted'>
+        <% if dependent_package.package_fields['downloads'] %>
+          downloads: <%= number_with_delimiter dependent_package.package_fields['downloads'] %><br/>
+        <% end %>
+
+        <% if dependent_package.package_fields['status'] %>
+        status: <%= dependent_package.package_fields['status'] %><br/>
+        <% end %>
+
+        Resolved versions: <%= dependent_package.resolved_versions.join(', ') %><br/>
+        Versions: <%= dependent_package.versions.keys.join(', ') %><br/>
+      </small>
+    </div>
+  </div>
+<% end %>

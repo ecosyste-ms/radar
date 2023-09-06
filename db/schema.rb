@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_21_162740) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_06_140037) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dependent_packages", force: :cascade do |t|
+    t.integer "package_id"
+    t.string "name"
+    t.string "resolved_versions", default: [], array: true
+    t.string "resolved_major_versions", default: [], array: true
+    t.string "resolved_minor_versions", default: [], array: true
+    t.string "resolved_patch_versions", default: [], array: true
+    t.json "package_fields"
+    t.json "versions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "dependent_repositories", force: :cascade do |t|
     t.integer "package_id"
@@ -50,6 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_21_162740) do
     t.json "advisories", default: []
     t.bigint "last_dependency_id"
     t.integer "dependent_repositories_count", default: 0
+    t.integer "dependent_packages_count", default: 0
+    t.integer "last_package_dependency_id"
   end
 
   create_table "registries", force: :cascade do |t|

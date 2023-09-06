@@ -2,6 +2,7 @@ class Package < ApplicationRecord
   belongs_to :registry
   has_many :versions
   has_many :dependent_repositories
+  has_many :dependent_packages
 
   def self.list_owner_repo_names(owner)
     Octokit.auto_paginate = true
@@ -139,7 +140,7 @@ class Package < ApplicationRecord
     dependencies = []
   
     loop do
-      url = "https://repos.ecosyste.ms/api/v1/usage/#{ecosystem}/#{name}/dependencies?per_page=1000&page=#{page}&last_dependency_id=#{last_dependency_id}"
+      url = "https://repos.ecosyste.ms/api/v1/usage/#{ecosystem}/#{name}/dependencies?per_page=100&page=#{page}&after=#{last_dependency_id}"
 
       response = Faraday.get(url)
       break unless response.success?
@@ -218,5 +219,48 @@ class Package < ApplicationRecord
   def fetch_html(url)
     response = Faraday.get(url)
     Nokogiri::HTML(response.body)
+  end
+
+  def sync_dependent_packages
+    page = 1
+    dependencies = []
+  
+    loop do
+      url = "https://packages.ecosyste.ms/api/v1/dependencies?ecosystem=#{ecosystem}&package_name=#{name}&per_page=100&page=#{page}&after=#{last_package_dependency_id}"
+
+      response = Faraday.get(url)
+      
+      break unless response.success?
+      dependencies = JSON.parse(response.body)
+
+      break if dependencies.count == 0
+
+      groups = dependencies.group_by{|dep| dep['package']['name']  }
+
+      existing_packages = dependent_packages.where(name: groups.keys)
+
+      groups.each do |name, deps|
+        package = existing_packages.find{|r| r.name == name}
+        if package.nil?
+          package = dependent_packages.find_or_create_by(name: name)
+        end
+        
+        package.package_fields = deps.first['package']
+        
+        package.versions ||= {}
+
+        deps.each do |dep|
+          package.versions[dep['version']['number']] ||= []
+          package.versions[dep['version']['number']] << dep.except('package', 'package_name', 'ecosystem')
+          package.versions[dep['version']['number']].uniq!
+        end
+        package.set_details
+        package.save if package.changed?
+      end
+      page += 1
+      break if dependencies.count < 100
+    end
+
+    update(last_package_dependency_id: dependencies.last['id'], dependent_packages_count: dependent_packages.count) if dependencies.present?
   end
 end
