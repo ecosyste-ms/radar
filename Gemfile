@@ -18,7 +18,7 @@ gem "bootsnap", require: false
 
 gem "sassc-rails"
 
-
+gem 'faraday-typhoeus'
 gem 'faraday'
 gem "faraday-retry"
 gem "faraday-gzip"
