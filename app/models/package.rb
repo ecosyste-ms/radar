@@ -251,7 +251,7 @@ class Package < ApplicationRecord
 
         deps.each do |dep|
           package.versions[dep['version']['number']] ||= []
-          package.versions[dep['version']['number']] << dep.except('package', 'package_name', 'ecosystem')
+          package.versions[dep['version']['number']] << dep.except('package', 'package_name', 'ecosystem', 'version')
           package.versions[dep['version']['number']].uniq!
         end
         package.set_details
