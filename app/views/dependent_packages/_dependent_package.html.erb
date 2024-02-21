@@ -26,7 +26,8 @@
         <% end %>
 
         Resolved versions: <%= dependent_package.resolved_versions.join(', ') %><br/>
-        Versions: <%= dependent_package.versions.keys.join(', ') %><br/>
+        <% versions = dependent_package.versions.keys.sort.reverse %>
+        Versions: <%= versions.first(10).join(', ') %> <% if versions.length > 10 %>and <%= versions.length - 10 %> more<% end %>
       </small>
     </div>
   </div>
