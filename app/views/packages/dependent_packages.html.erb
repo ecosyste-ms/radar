@@ -15,6 +15,8 @@
   <%= simple_format @package.description %>
 <% end %>
 
+<p><%= link_to @package.repository_url, @package.repository_url, target: :_blank %></p>
+
 <small class='text-muted'>
   <% if @package.versions_count > 0 %>
     <%= pluralize number_with_delimiter(@package.versions_count), 'version' %>
@@ -22,6 +24,10 @@
 
   <% if @package.latest_release_published_at %>
     <%= '-' if @package.versions_count > 0 %> <span title="<%= @package.latest_release_published_at %>">Latest release: <%= time_ago_in_words @package.latest_release_published_at %> ago</span>
+  <% end %>
+
+    <% if @package.dependent_repositories_count > 0 %>
+    - <%= link_to pluralize(number_with_delimiter(@package.dependent_repositories_count), 'dependent repositories'), package_path(@package) %>
   <% end %>
 
   <% if @package.dependent_packages_count > 0 %>
