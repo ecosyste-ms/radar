@@ -107,7 +107,7 @@
         <% next if k.nil? %>
         <% name = k ? 'Direct' : 'Transitive' %>
         <li>
-          <%= link_to name, url_for(direct_dependency: k) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
+          <%= link_to name, url_for(request.query_parameters.merge({direct_dependency: k})) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
         </li>
       <% end %>
     </ul>
@@ -120,7 +120,7 @@
         <% next if k.nil? %>
         
         <li>
-          <%= link_to k, url_for(fork: k) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
+          <%= link_to k, url_for(request.query_parameters.merge({fork: k})) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
         </li>
       <% end %>
     </ul>
@@ -133,7 +133,7 @@
         <% next if k.nil? %>
         
         <li>
-          <%= link_to k, url_for(archived: k) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
+          <%= link_to k, url_for(request.query_parameters.merge({archived: k})) %>: <%= pluralize number_with_delimiter(v), 'repository' %>
         </li>
       <% end %>
     </ul>
@@ -150,5 +150,26 @@
   </small>
 </h4>
 
-<%= render @dependent_repositories %>
-<%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+<div class='row'>
+  <div class='col-md-9'>
+    <%= render @dependent_repositories %>
+    <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+  </div>
+  <div class='col-md-3'>
+    <div class='card'>
+      <div class="card-header">
+        Owners
+      </div>
+      <div class="list-group list-group-flush">
+      <% @owners.first(200).each do |owner, count|%>
+        
+          <span class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            <%= link_to owner, url_for(owner: owner) %>
+            <span class="badge bg-primary rounded-pill"><%= number_with_delimiter count%></span>
+          </span>
+        
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

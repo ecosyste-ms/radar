@@ -16,8 +16,14 @@ class PackagesController < ApplicationController
     @scope = @scope.where(resolved_minor_versions: Array(params[:resolved_minor_versions])) if params[:resolved_minor_versions]
     @scope = @scope.where('resolved_patch_versions && ?', "{#{Array(params[:resolved_patch_versions]).join(',')}}") if params[:resolved_patch_versions]
 
+    
+    @owners = @scope.group_by(&:owner).map{|k,v| [k, v.size]}.sort_by{|k,v| -v}
+
+    @scope = @scope.owner(params[:owner]) if params[:owner]
 
     @pagy, @dependent_repositories = pagy(@scope.order(Arel.sql("(repository_fields->>'stargazers_count')::text::integer").desc.nulls_last))
+
+
   end
 
   def dependent_packages

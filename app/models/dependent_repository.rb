@@ -2,8 +2,18 @@ class DependentRepository < ApplicationRecord
 
   belongs_to :package
 
+  scope :owner, ->(owner) { where("repository_fields->>'owner' = ?", owner) }
+
   def description
     repository_fields['description']
+  end
+
+  def owner
+    repository_fields['owner']
+  end
+
+  def short_name
+    full_name.split('/').last
   end
 
   def calculate_resolved_versions

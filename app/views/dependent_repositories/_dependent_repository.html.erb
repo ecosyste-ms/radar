@@ -2,7 +2,7 @@
   <div class="card mb-3">
     <div class="card-body">
       <h5 class="card-title">
-        <%= link_to dependent_repository.full_name, dependent_repository.repository_fields['html_url'], target: :_blank %>
+        <%= link_to dependent_repository.owner,url_for(owner: dependent_repository.owner) %>/<%= link_to dependent_repository.short_name, dependent_repository.repository_fields['html_url'], target: :_blank %>
         <small class='text-muted'>
         <%= URI.parse(dependent_repository.repository_fields['html_url']).host.downcase %>
         </small>
