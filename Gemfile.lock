@@ -150,7 +150,7 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
     minitest (5.22.3)
-    mocha (2.1.0)
+    mocha (2.2.0)
       ruby2_keywords (>= 0.0.5)
     msgpack (1.7.2)
     mutex_m (0.2.0)
@@ -166,22 +166,22 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.1)
-    nokogiri (1.16.3)
+    nokogiri (1.16.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.16.3-aarch64-linux)
+    nokogiri (1.16.4-aarch64-linux)
       racc (~> 1.4)
-    nokogiri (1.16.3-arm64-darwin)
+    nokogiri (1.16.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.3-x86_64-darwin)
+    nokogiri (1.16.4-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.3-x86_64-linux)
+    nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
     octokit (8.1.0)
       base64
       faraday (>= 1, < 3)
       sawyer (~> 0.9)
-    pagy (8.0.1)
+    pagy (8.1.2)
     pg (1.5.6)
     popper_js (2.11.8)
     psych (5.1.2)
@@ -234,7 +234,7 @@ GEM
     rake (13.2.1)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
-    reline (0.5.0)
+    reline (0.5.1)
       io-console (~> 0.5)
     rexml (3.2.6)
     ruby2_keywords (0.0.5)
@@ -323,4 +323,4 @@ RUBY VERSION
    ruby 3.3.0p53
 
 BUNDLED WITH
-   2.5.7
+   2.5.8
