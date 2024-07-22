@@ -1,8 +1,8 @@
 require 'pagy/extras/headers'
-require 'pagy/extras/items'
+require 'pagy/extras/limit'
 require 'pagy/extras/countless'
 require 'pagy/extras/bootstrap'
 
-Pagy::DEFAULT[:items] = 25
-Pagy::DEFAULT[:items_param] = :per_page
-Pagy::DEFAULT[:max_items] = 100
+Pagy::DEFAULT[:limit] = 25
+Pagy::DEFAULT[:limit_param] = :per_page
+Pagy::DEFAULT[:limit_max] = 100
