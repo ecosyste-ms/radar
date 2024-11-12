@@ -128,7 +128,7 @@ GEM
     ffi (1.17.0-x86_64-linux-gnu)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    hashdiff (1.1.1)
+    hashdiff (1.1.2)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
@@ -158,7 +158,7 @@ GEM
     minitest (5.25.1)
     mocha (2.5.0)
       ruby2_keywords (>= 0.0.5)
-    msgpack (1.7.3)
+    msgpack (1.7.5)
     net-http (0.5.0)
       uri
     net-imap (0.5.1)
@@ -287,7 +287,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     zeitwerk (2.7.1)
-    zlib (3.1.1)
+    zlib (3.2.0)
 
 PLATFORMS
   aarch64-linux-musl
