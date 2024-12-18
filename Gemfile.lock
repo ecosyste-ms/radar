@@ -188,7 +188,7 @@ GEM
     pagy (9.3.3)
     pg (1.5.9)
     popper_js (2.11.8)
-    psych (5.2.1)
+    psych (5.2.2)
       date
       stringio
     public_suffix (6.0.1)
