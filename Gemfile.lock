@@ -111,7 +111,7 @@ GEM
       logger
     faraday-follow_redirects (0.3.0)
       faraday (>= 1, < 3)
-    faraday-gzip (3.0.2)
+    faraday-gzip (3.0.3)
       faraday (>= 2.0, < 3)
       zlib (~> 3.0)
     faraday-net_http (3.4.0)
@@ -278,7 +278,7 @@ GEM
       ethon (>= 0.9.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uri (1.0.2)
+    uri (1.0.3)
     useragent (0.16.11)
     web-console (4.2.1)
       actionview (>= 6.0.0)
