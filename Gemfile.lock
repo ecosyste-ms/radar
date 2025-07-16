@@ -98,7 +98,7 @@ GEM
       dotenv (= 3.1.8)
       railties (>= 6.1)
     drb (2.2.3)
-    erb (5.0.1)
+    erb (5.0.2)
     erubi (1.13.1)
     ethon (0.16.0)
       ffi (>= 1.15.0)
