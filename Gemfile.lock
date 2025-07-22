@@ -99,7 +99,7 @@ GEM
     erubi (1.13.1)
     ethon (0.16.0)
       ffi (>= 1.15.0)
-    faraday (2.13.2)
+    faraday (2.13.3)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -329,4 +329,4 @@ RUBY VERSION
    ruby 3.4.5p51
 
 BUNDLED WITH
-   2.7.0
+   2.7.1
