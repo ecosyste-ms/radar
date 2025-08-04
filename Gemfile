@@ -5,6 +5,8 @@ ruby '3.4.5'
 
 gem "rails"
 
+gem "secure_headers"
+
 gem "sprockets-rails"
 
 gem "pg"
