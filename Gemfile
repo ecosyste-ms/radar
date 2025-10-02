@@ -3,7 +3,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.4.6'
 
-gem "rails"
+gem "railties"
+gem "activerecord"
+gem "actionpack"
+gem "actionview"
+gem "activemodel"
+gem "activesupport"
 
 gem "secure_headers"
 
@@ -31,6 +36,7 @@ gem 'semantic_range'
 gem 'pagy'
 
 gem 'bootstrap'
+gem 'bootstrap-icons', require: 'bootstrap_icons'
 gem 'jquery-rails'
 gem 'octokit'
 
