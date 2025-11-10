@@ -191,7 +191,7 @@ GEM
     secure_headers (7.1.0)
     securerandom (0.4.1)
     semantic_range (3.1.0)
-    shoulda-context (2.0.0)
+    shoulda-context (3.0.0.rc1)
     shoulda-matchers (7.0.1)
       activesupport (>= 7.1)
     sprockets (4.2.2)
@@ -259,7 +259,7 @@ DEPENDENCIES
   sassc-rails
   secure_headers
   semantic_range
-  shoulda-context
+  shoulda-context (~> 3.0.0.rc1)
   shoulda-matchers
   sprockets-rails
   web-console
