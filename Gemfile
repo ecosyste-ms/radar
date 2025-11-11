@@ -33,7 +33,7 @@ gem "faraday-follow_redirects"
 
 gem 'semantic_range'
 
-gem "pagy", "~> 9.4.0"
+gem "pagy", "~> 43.0.2"
 
 gem 'bootstrap'
 gem 'bootstrap-icons', require: 'bootstrap_icons'
