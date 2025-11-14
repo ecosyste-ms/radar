@@ -110,8 +110,8 @@ GEM
     mocha (2.8.0)
       ruby2_keywords (>= 0.0.5)
     msgpack (1.8.0)
-    net-http (0.7.0)
-      uri
+    net-http (0.8.0)
+      uri (>= 0.11.1)
     nio4r (2.7.5)
     nokogiri (1.18.10-aarch64-linux-musl)
       racc (~> 1.4)
