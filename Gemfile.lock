@@ -226,7 +226,7 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     zeitwerk (2.7.5)
-    zlib (3.2.2)
+    zlib (3.2.3)
 
 PLATFORMS
   aarch64-linux-musl
