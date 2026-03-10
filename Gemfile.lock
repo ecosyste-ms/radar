@@ -63,8 +63,9 @@ GEM
     drb (2.2.3)
     erb (6.0.2)
     erubi (1.13.1)
-    ethon (0.15.0)
+    ethon (0.18.0)
       ffi (>= 1.15.0)
+      logger
     faraday (2.14.1)
       faraday-net_http (>= 2.0, < 3.5)
       json
@@ -211,8 +212,8 @@ GEM
     tilt (2.7.0)
     timeout (0.6.1)
     tsort (0.2.0)
-    typhoeus (1.5.0)
-      ethon (>= 0.9.0, < 0.16.0)
+    typhoeus (1.6.0)
+      ethon (>= 0.18.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uri (1.1.1)
