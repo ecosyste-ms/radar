@@ -9,6 +9,7 @@ gem "actionpack"
 gem "actionview"
 gem "activemodel"
 gem "activesupport"
+gem "json", "< 3" # rails/rails#58601
 
 gem "secure_headers"
 
